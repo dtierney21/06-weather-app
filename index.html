@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Weather Dashboard</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
         <style href="./assets/css/style.css"></style>
     </head>
     <header>
@@ -9,19 +10,32 @@
     </header>
     <body>
         <main>
-            <section id="search">
-
-            </section>
-            <section id="history">
-
-            </section>
-            <section id="current-weather">
-
-            </section>
-            <section id="forecast">
-
+            <section class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <div id="search">
+                            <p><b>Search for a City: </b></p>
+                            <input id="search-term" class="row" type="text" placeholder="Detroit">
+                            <button class="row" id="search-button">Search</button>
+                        </div>
+                        <div id="history"></div>
+                    </div>
+                    <div class="col-8">
+                        <div id="current-weather"></div>
+                        <p id="current-city"></p>
+                        <p id="current-date"></p>
+                        <img id="current-icon">
+                        <p id="current-temp"></p>
+                        <p id="current-wind"></p>
+                        <p id="current-humidity"></p>
+                        <p id="current-uvi"></p>
+                    </div>
+                        <div id="forecast" class="row"></div>
+                </div>
             </section>
         </main>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
         <script src="./assets/js/script.js"></script>
     </body>
 </html>
