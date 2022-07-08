@@ -1,5 +1,5 @@
 
-var geocodingAPIBaseURL = 'http://api.openweathermap.org/geo/1.0/direct?q=';
+var geocodingAPIBaseURL = 'https://api.openweathermap.org/geo/1.0/direct?q=';
 var openWeatherBaseURL = 'https://api.openweathermap.org/data/2.5/onecall?'
 var openWeatherAPIKey = '&appid=8d5b46bf7541eef553a9aca23e0b3890';
 var returnedCity;
