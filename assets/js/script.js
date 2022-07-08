@@ -73,6 +73,8 @@ function displayForecast (date, temp, wind, humidity, icon) {
     var formattedDate = moment(date * 1000).format('M/D/YYYY');
 
     var forecastDiv = document.createElement('div');
+    forecastDiv.style.padding = '8px';
+    forecastDiv.style.margin = '8px';
     var forecastDate = document.createElement('p');
     forecastDate.textContent = formattedDate;
     var forecastIcon = document.createElement('img');
@@ -106,9 +108,11 @@ function createSavedButtons () {
     console.log('array length: ' + savedCities.length)
     //for (var i = 0; i<citySet.size; i++) {
     savedCities.forEach(element => {
+        var cityListItem = document.createElement('li');
         var cityBtn = document.createElement('button');
         cityBtn.textContent = element;
-        document.getElementById('history').append(cityBtn);
+        cityListItem.append(cityBtn);
+        document.getElementById('history').append(cityListItem);
     })
 }
 
@@ -119,13 +123,18 @@ function createForecastHeader() {
 }
 
 $('#search-button').on('click', function() {
+    clearForecast();
     createForecastHeader();
     getWeather($('#search-term').val())
     
 });
 
 $('#history').click(function(evt){
+    clearForecast();
     createForecastHeader();
     getWeather($(evt.target).text());
 })
 
+function clearForecast() {
+    document.getElementById('forecast').innerHTML = '';
+}
