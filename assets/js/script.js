@@ -1,19 +1,21 @@
 
+// Api variables
 var geocodingAPIBaseURL = 'https://api.openweathermap.org/geo/1.0/direct?q=';
 var openWeatherBaseURL = 'https://api.openweathermap.org/data/2.5/onecall?'
 var openWeatherAPIKey = '&appid=8d5b46bf7541eef553a9aca23e0b3890';
 var returnedCity;
-
 var units = '&units=imperial';
-var requestLocationURL; // = geocodingAPIBaseURL+city+openWeatherAPIKey;
+var requestLocationURL;
 var requestWeatherURL;
 var baseIconURL = 'https://openweathermap.org/img/wn/';
 
+// fetch the wather data for the selected city from OpenWeather
 function getWeather(city) {
     var lat = 'lat=';
     var lon = '&lon=';
     requestLocationURL = geocodingAPIBaseURL+city+openWeatherAPIKey;
     console.log('locationURL: ' + requestLocationURL);
+    // get the lat and long of the selected city
     fetch(requestLocationURL)
         .then(function (response) {
             return response.json();
@@ -29,6 +31,7 @@ function getWeather(city) {
             console.log('weatherURL: ' + requestWeatherURL);
             saveCity(returnedCity);
         })
+        // request the waether data using the lat and long
         .then(function () {
             fetch(requestWeatherURL)
             .then(function (response) {
@@ -45,6 +48,7 @@ function getWeather(city) {
         })
 }
 
+// create the elements to display the current weather
 function displayWeather (city, date, temp, wind, humidity, uvIndex, icon) {
     var formattedDate = moment(date * 1000).format('(M/D/YYYY)');
     iconURL = baseIconURL + icon + '@2x.png';
@@ -69,6 +73,7 @@ function displayWeather (city, date, temp, wind, humidity, uvIndex, icon) {
     
 }
 
+// create the elements to display the five day forcast
 function displayForecast (date, temp, wind, humidity, icon) {
     var formattedDate = moment(date * 1000).format('M/D/YYYY');
 
@@ -94,6 +99,7 @@ function displayForecast (date, temp, wind, humidity, icon) {
     document.getElementById('forecast').append(forecastDiv);
 }
 
+// write the city name to local storage to be used to search again
 function saveCity(name) {
     var cities = [];
     console.log('name: '+ name);
@@ -103,6 +109,7 @@ function saveCity(name) {
     createSavedButtons();
 }
 
+// create the elements to allow a user to search a previuosly selected city
 function createSavedButtons () {
     var savedCities = JSON.parse(localStorage.getItem('savedCities'));
     console.log('array length: ' + savedCities.length)
@@ -116,12 +123,14 @@ function createSavedButtons () {
     })
 }
 
+// create the header for the forecast section
 function createForecastHeader() {
     var forecastHeader = document.createElement('h2');
     forecastHeader.textContent = '5-Day Forecast:'
     document.getElementById('forecast').append(forecastHeader);
 }
 
+// when the user clicks the search button, display the current weather and forecast
 $('#search-button').on('click', function() {
     clearForecast();
     createForecastHeader();
@@ -129,12 +138,14 @@ $('#search-button').on('click', function() {
     
 });
 
+// when the user clicks on a city they have previously searched, show the weather and forecast for that city
 $('#history').click(function(evt){
     clearForecast();
     createForecastHeader();
     getWeather($(evt.target).text());
 })
 
+// clear the previuos forcast elements
 function clearForecast() {
     document.getElementById('forecast').innerHTML = '';
 }
